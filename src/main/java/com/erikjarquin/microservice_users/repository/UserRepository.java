@@ -1,5 +1,8 @@
 package com.erikjarquin.microservice_users.repository;
 
-public class UserRepository {
-    
+import org.apache.catalina.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long>{
+    boolean existsByEmail(String email);
 }
