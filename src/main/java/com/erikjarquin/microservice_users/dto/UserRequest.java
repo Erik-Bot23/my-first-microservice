@@ -1,6 +1,5 @@
 package com.erikjarquin.microservice_users.dto;
 
-import lombok.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
