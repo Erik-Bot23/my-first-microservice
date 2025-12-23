@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserResponse createUser(UserRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyUsedException(request.getEmail());
+        }
         User user = new User(null, request.getName(), request.getEmail());
         user = userRepository.save(user);
         return new UserResponse(user.getId(), user.getName(), user.getEmail());

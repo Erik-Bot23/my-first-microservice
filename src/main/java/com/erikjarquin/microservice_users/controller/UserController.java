@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.erikjarquin.microservice_users.dto.OrderDto;
 import com.erikjarquin.microservice_users.dto.UserRequest;
 import com.erikjarquin.microservice_users.dto.UserResponse;
+import com.erikjarquin.microservice_users.service.UserOrderService;
 import com.erikjarquin.microservice_users.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 public class UserController {
     private final UserService userService;
+    private final UserOrderService userOrderService;
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRequest request) {
@@ -42,6 +45,11 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResponse getById(@PathVariable Long id) {
         return userService.getUserById(id);
+    }
+
+    @GetMapping("/{id}/orders")
+    public List<OrderDto> getUserOrders(@PathVariable Long id){
+        return userOrderService.getOrdersForUser(id);
     }
 
     @DeleteMapping("/{id}")
